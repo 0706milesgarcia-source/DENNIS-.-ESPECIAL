@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Dennis ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Fredoka', cursive, sans-serif;
+      background-color: #fffde7; /* Amarillo clarito pastel */
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Estrellitas interactivas flotantes */
+    .star {
+      position: absolute;
+      font-size: 2rem;
+      cursor: pointer;
+      user-select: none;
+      animation: float 4s ease-in-out infinite alternate;
+      z-index: 5;
+      transition: transform 0.2s;
+    }
+
+    .star:hover {
+      transform: scale(1.3) rotate(15deg);
+    }
+
+    .s1 { top: 10%; left: 8%; animation-delay: 0s; }
+    .s2 { top: 15%; right: 10%; animation-delay: 1s; }
+    .s3 { bottom: 20%; left: 10%; animation-delay: 2s; }
+    .s4 { bottom: 12%; right: 12%; animation-delay: 1.5s; }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-15px); }
+    }
+
+    /* Mensaje flotante de la estrella */
+    .star-pop {
+      position: fixed;
+      background: #fff;
+      color: #fbc02d;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      border: 2px solid #fff59d;
+      pointer-events: none;
+      animation: popFade 1.5s forwards;
+      z-index: 100;
+    }
+
+    @keyframes popFade {
+      0% { opacity: 0; transform: translateY(0) scale(0.8); }
+      20% { opacity: 1; transform: translateY(-10px) scale(1.1); }
+      80% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-30px) scale(1); }
+    }
+
+    /* Tarjeta Login */
+    .card-login {
+      background: #ffffff;
+      border: 4px solid #fff59d;
+      border-radius: 25px;
+      padding: 35px 25px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(253, 216, 53, 0.2);
+      z-index: 10;
+    }
+
+    h2 {
+      color: #f57f17;
+      margin-bottom: 20px;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #fff176;
+      border-radius: 15px;
+      outline: none;
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      background: #fffde7;
+    }
+
+    button {
+      background: #fbc02d;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(251, 192, 45, 0.4);
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .error-msg {
+      color: #e53935;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    /* Pergamino */
+    .parchment-container {
+      width: 90%;
+      max-width: 650px;
+      margin: 20px auto;
+      z-index: 10;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+
+    .parchment {
+      background: #fcf5d8;
+      background-image: radial-gradient(#f4e7b6 15%, transparent 16%);
+      background-size: 20px 20px;
+      border: 12px solid #e2c97c;
+      border-radius: 10px;
+      padding: 35px 30px;
+      box-shadow: inset 0 0 30px rgba(162, 129, 46, 0.3), 0 10px 20px rgba(0,0,0,0.15);
+      color: #4a3b10;
+      font-family: 'Caveat', cursive;
+      font-size: 1.55rem;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    .parchment h3 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #8d6e63;
+    }
+
+    .btn-cerrar-carta {
+      display: block;
+      margin: 25px auto 0 auto;
+      background: #8d6e63;
+      box-shadow: 0 4px 10px rgba(141, 110, 99, 0.4);
+    }
+
+    /* Telón de Cierre */
+    .curtain {
+      position: fixed;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: #263238;
+      z-index: 1000;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .curtain-left {
+      left: 0;
+      transform: translateX(-100%);
+    }
+
+    .curtain-right {
+      right: 0;
+      transform: translateX(100%);
+    }
+
+    .curtains-closed .curtain-left {
+      transform: translateX(0);
+    }
+
+    .curtains-closed .curtain-right {
+      transform: translateX(0);
+    }
+
+    /* Pantalla Reloj / Corazón */
+    .stage-final {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #fffde7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+      flex-direction: column;
+    }
+
+    .clock {
+      font-size: 6rem;
+      color: #f57f17;
+      font-weight: bold;
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 30px;
+      border: 5px solid #fff59d;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .heart-container {
+      text-align: center;
+      animation: heartPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .heart {
+      font-size: 9rem;
+      color: #e91e63;
+      animation: pulse 1.2s infinite alternate;
+    }
+
+    .heart-text {
+      font-size: 2.8rem;
+      color: #d81b60;
+      margin-top: 10px;
+      font-family: 'Caveat', cursive;
+      font-weight: bold;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.15); }
+    }
+
+    @keyframes heartPop {
+      0% { opacity: 0; transform: scale(0.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Estrellitas -->
+  <div class="star s1" onclick="showPop(event)">⭐</div>
+  <div class="star s2" onclick="showPop(event)">✨</div>
+  <div class="star s3" onclick="showPop(event)">🌟</div>
+  <div class="star s4" onclick="showPop(event)">⭐</div>
+
+  <!-- Telón -->
+  <div id="curtain-l" class="curtain curtain-left"></div>
+  <div id="curtain-r" class="curtain curtain-right"></div>
+
+  <!-- Pantalla 1: Login -->
+  <div id="login-screen" class="card-login">
+    <h2>Ingresa la Clave 🔑</h2>
+    <input type="password" id="pass-input" placeholder="Escribe aquí..." onkeypress="checkEnter(event)">
+    <button onclick="login()">Entrar</button>
+    <p id="error-msg" class="error-msg hidden">Contraseña incorrecta</p>
+  </div>
+
+  <!-- Pantalla 2: Pergamino -->
+  <div id="letter-screen" class="parchment-container hidden">
+    <div class="parchment">
+      <h3>Para Dennis, mi mejor amiga:</h3>
+      <p>Dennis, si estás leyendo esto, probablemente ocurrió algo que nunca pensé que tendría que escribir. No quiero hacer de esto algo triste, pero por si algún día ocurre un terremoto o alguna situación en la que yo ya no esté, quiero dejarte unas palabras.</p><br>
+      <p>Primero, quiero que sepas que haber sido mi mejor amiga fue una de las cosas más bonitas que me pudo pasar. Gracias por todas las risas, las conversaciones, los momentos buenos y también por haber estado ahí en los momentos no tan buenos. Quizá nunca fui perfecta y probablemente hubo veces en las que no supe demostrarte lo mucho que te quería, pero espero que siempre hayas sabido lo importante que eras para mí.</p><br>
+      <p>Ahora sí, pasando a lo importante: te dejo mi USB. 😂</p><br>
+      <p>Dentro encontrarás información que considero importante, especialmente todo lo relacionado con Mateo y el Señor Punto. Te encargo que lo guardes bien y que, por favor, no dejes que esa información desaparezca conmigo. Si alguna vez alguien necesita saber algo de todo ese asunto, tú ya sabes dónde buscar.</p><br>
+      <p>Considera esto mi pequeño “testamento” de confianza. No porque quiera ponerme dramática, sino porque uno nunca sabe qué puede pasar y prefiero dejar las cosas claras.</p><br>
+      <p>Y por favor, Dennis, si algún día pasa algo, no te quedes solamente triste por mí. Llórame si tienes que hacerlo, recuérdame, ríete de nuestras tonterías y sigue con tu vida. Quiero que cumplas tus sueños y que seas feliz.</p><br>
+      <p>Y si algún día ves mi USB y piensas: “Esta loca realmente dejó esto preparado”, sí, probablemente estaba loca. JAJAJA.</p><br>
+      <p>Gracias por haber sido mi amiga, mi cómplice y una de esas personas que hicieron mi vida un poquito más bonita.</p><br>
+      <p>Te quiero muchísimo, Dennis.</p>
+      <p>Cuida mi USB. Y cuida también todos nuestros recuerdos. ❤️</p><br>
+      <p style="text-align: right;">— Tu mejor amiga</p>
+
+      <button class="btn-cerrar-carta" onclick="cerrarCarta()">Continuar 💕</button>
+    </div>
+  </div>
+
+  <!-- Pantalla 3: Reloj y Corazón Final -->
+  <div id="final-screen" class="stage-final hidden">
+    <div id="clock-box" class="clock">10</div>
+    <div id="heart-box" class="heart-container hidden">
+      <div class="heart">❤️</div>
+      <div class="heart-text">TE QUIERO DENNIS</div>
+    </div>
+  </div>
+
+  <script>
+    // Estrellitas
+    function showPop(e) {
+      const pop = document.createElement('div');
+      pop.className = 'star-pop';
+      pop.innerText = 'DENNIS Y MILES';
+      pop.style.left = (e.clientX - 50) + 'px';
+      pop.style.top = (e.clientY - 20) + 'px';
+      document.body.appendChild(pop);
+
+      setTimeout(() => pop.remove(), 1500);
+    }
+
+    // Login
+    function login() {
+      const input = document.getElementById('pass-input').value.trim();
+      if (input === 'MILESNIKO') {
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('letter-screen').classList.remove('hidden');
+      } else {
+        document.getElementById('error-msg').classList.remove('hidden');
+      }
+    }
+
+    function checkEnter(e) {
+      if (e.key === 'Enter') login();
+    }
+
+    // Cierre tipo Telón y Cuenta Regresiva
+    function cerrarCarta() {
+      document.body.classList.add('curtains-closed');
+
+      setTimeout(() => {
+        document.getElementById('letter-screen').classList.add('hidden');
+        document.getElementById('final-screen').classList.remove('hidden');
+        
+        // Abrir telón
+        document.body.classList.remove('curtains-closed');
+        iniciarCuentaRegresiva();
+      }, 1400);
+    }
+
+    function iniciarCuentaRegresiva() {
+      let count = 10;
+      const clockBox = document.getElementById('clock-box');
+      const heartBox = document.getElementById('heart-box');
+
+      const timer = setInterval(() => {
+        count--;
+        clockBox.innerText = count < 10 ? '0' + count : count;
+
+        if (count <= 0) {
+          clearInterval(timer);
+          clockBox.classList.add('hidden');
+          heartBox.classList.remove('hidden');
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
